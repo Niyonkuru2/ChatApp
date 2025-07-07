@@ -3,7 +3,7 @@ import assets from '../assets/assets'
 import { AuthContext } from '../context/AuthContect'
 
 const Login = () => {
-  const [currentState,setCurrentState] = useState("Sign Up")
+  const [currentState,setCurrentState] = useState("Login")
    const [fullName,setFullName] = useState("")
    const [email,setEmail] = useState("")
    const [password,setPassword] = useState("")
@@ -70,10 +70,12 @@ const Login = () => {
           {currentState ==="Sign Up" ? "Create Account":"Login Now"}
         </button>
 
+     {currentState === "Sign Up" &&
         <div className='flex items-center gap-2 text-sm text-gray-500'>
           <input type="checkbox" required />
           <p>Agree to the terms of use & privacy policy</p>
         </div>
+}
         <div className='flex flex-col gap-2'>
           {
             currentState ==="Sign Up" ? (
