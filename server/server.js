@@ -6,7 +6,6 @@ import { connectDb } from "./config/db.js";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messagesRoutes.js";
 import {Server} from 'socket.io';
-import { Socket } from "dgram";
 
 //Create express app and Http Server
 
