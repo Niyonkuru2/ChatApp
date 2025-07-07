@@ -30,23 +30,46 @@ export const signup = async(req,res)=>{
 }
 
 //controller function to login user 
+export const login = async (req, res) => {
+  const { email, password } = req.body;
 
-export const login = async(req,res)=>{
-    const {email,password} = req.body;
-    try {
-        const userData = await User.findOne({email});
-        const isPasswordCorrect = await bcrypt.compare(password,userData.password)
-        if (!isPasswordCorrect) {
-          return res.json({success:false,message:"Invalid Credentials"})   
-        }
-        const token = generateToken(userData._id)
-        res.json({success:true,userData,token,message:"Login Successful"
-        })
-    } catch (error) {
-        console.log(error.message);
-       res.json({success:false,message:error.message})  
+  try {
+    const userData = await User.findOne({ email });
+
+    // ✅ Check if user exists first
+    if (!userData) {
+      return res.status(404).json({
+        success: false,
+        message: "User with this email does not exist",
+      });
     }
-}
+
+    const isPasswordCorrect = await bcrypt.compare(password, userData.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid credentials",
+      });
+    }
+
+    const token = generateToken(userData._id);
+
+    res.json({
+      success: true,
+      userData,
+      token,
+      message: "Login successful",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 
 //controller to check if user is authenticated
 
