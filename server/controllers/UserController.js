@@ -36,9 +36,9 @@ export const login = async (req, res) => {
   try {
     const userData = await User.findOne({ email });
 
-    // ✅ Check if user exists first
+    // Check if user exists first
     if (!userData) {
-      return res.status(404).json({
+      return res.json({
         success: false,
         message: "User with this email does not exist",
       });
