@@ -42,7 +42,7 @@ app.use(express.json({ limit: "4mb" }));
 app.use(cors());
 
 // Health check route
-app.get("/api/status", (req, res) => res.send("Server is Live"));
+app.get("/", (req, res) => res.send("Server is Live"));
 
 // Routes
 app.use("/api/auth", userRouter);
